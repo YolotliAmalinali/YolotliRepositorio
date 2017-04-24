@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="windows-1252"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       
+       xmlns:context= "http://www.springframework.org/schema/context"
+       xsi:schemaLocation= "http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context-4.3.xsd"
+       xmlns:aop="http://www.springframework.org/schema/aop">
+
+    
+    <context:property-placeholder location="classpath:configuration.properties" ignore-unresolvable="true"/>
+    
+    
+    
+    <bean id="calculadora" class="com.beeva.app.utils.Calculadora"
+          init-method="saludo" destroy-method="despedida">
+        <constructor-arg value="${figura.nombre}" />
+        <property name="figura"
+                  value="#{Calculadora.nombreFigura == 'triangulo'?triangulo:rectangulo}" />
+    </bean>
+    
+    <bean id="triangulo" class="com.beeva.app.figures.Triangulo">
+        <constructor-arg value="TRIANGULO" />
+        <property name="base" value="${figura.base}" />
+        <property name="altura" value="${figura.altura}" />
+    </bean>
+
+    <bean id="rectangulo" class="com.beeva.app.figures.Rectangulo">
+        <constructor-arg value="RECTANGULO" />
+        <property name="base" value="${figura.base}" />
+        <property name="altura" value="${figura.altura}" />
+    </bean>
+
+</beans>
